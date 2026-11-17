@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Campus & Student Activity Hub</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen antialiased flex flex-col justify-between">
+
+  <div>
+    <!-- Navigation Header -->
+    <header class="bg-indigo-600 text-white shadow-md">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+        <div class="flex items-center space-x-2">
+          <span class="text-3xl">🎓</span>
+          <div>
+            <h1 class="text-2xl font-bold tracking-tight">Smart Campus Hub</h1>
+            <p class="text-xs text-indigo-200">Student Activity & Resource Management System</p>
+          </div>
+        </div>
+        <span class="text-xs font-semibold bg-indigo-700/80 px-3.5 py-1.5 rounded-full border border-indigo-400/30">Bugema University Edition</span>
+      </div>
+    </header>
+
+    <!-- Module Navigation Tabs -->
+    <nav class="max-w-7xl mx-auto px-6 mt-8 flex flex-wrap gap-2 border-b border-slate-200 pb-4">
+      <button onclick="switchTab('events')" id="btnEvents" class="px-5 py-2.5 font-semibold text-sm rounded-lg shadow-sm transition-all duration-200 bg-indigo-600 text-white">📅 Campus Events</button>
+      <button onclick="switchTab('announcements')" id="btnAnnouncements" class="px-5 py-2.5 font-semibold text-sm rounded-lg shadow-sm transition-all duration-200 bg-white text-slate-600 border border-slate-200 hover:bg-slate-100">📢 Announcements</button>
+      <button onclick="switchTab('lostFound')" id="btnLostFound" class="px-5 py-2.5 font-semibold text-sm rounded-lg shadow-sm transition-all duration-200 bg-white text-slate-600 border border-slate-200 hover:bg-slate-100">🔍 Lost & Found</button>
+      <button onclick="switchTab('studyGroups')" id="btnStudyGroups" class="px-5 py-2.5 font-semibold text-sm rounded-lg shadow-sm transition-all duration-200 bg-white text-slate-600 border border-slate-200 hover:bg-slate-100">📚 Study Groups</button>
+    </nav>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl mx-auto px-6 py-8">
+
+      <!-- === SECTION 1: EVENTS === -->
+      <div id="eventsSection" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Left: Create Event Form -->
+        <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 lg:col-span-4 sticky top-6">
+          <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <span class="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg text-sm">✨</span> Publish New Event
+          </h2>
+          <form id="eventForm" class="space-y-4 text-sm">
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">Event Title</label>
+              <input type="text" id="title" required placeholder="e.g., Annual Sports Gala" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition">
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">Description</label>
+              <textarea id="description" rows="2" required placeholder="Event agenda and brief details..." class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"></textarea>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block font-medium text-slate-700 mb-1">Category</label>
+                <select id="category" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 bg-white transition">
+                  <option value="Workshop">Workshop</option>
+                  <option value="Sports">Sports</option>
+                  <option value="Cultural">Cultural</option>
+                  <option value="Academic">Academic</option>
+                </select>
+              </div>
+              <div>
+                <label class="block font-medium text-slate-700 mb-1">Capacity</label>
+                <input type="number" id="capacity" value="50" min="1" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition">
+              </div>
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">Location / Venue</label>
+              <input type="text" id="location" required placeholder="e.g., Maranatha Pitch" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition">
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">Event Date & Time</label>
+              <input type="datetime-local" id="eventDate" required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition">
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">Organizer Name</label>
+              <input type="text" id="organizerName" required placeholder="e.g., Sports Department" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition">
+            </div>
+            <button type="submit" class="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-semibold hover:bg-indigo-700 transition active:scale-[0.99] shadow-sm">Publish Event</button>
+          </form>
+        </section>
+
+        <!-- Right: Events Feed -->
+        <section class="lg:col-span-8 space-y-6">
+          <div class="flex justify-between items-center">
+            <h2 class="text-xl font-bold text-slate-900">Upcoming Campus Events</h2>
+            <button onclick="loadEvents()" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition flex items-center gap-1">🔄 Refresh List</button>
+          </div>
+          <div id="eventsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <p class="text-slate-500 italic md:col-span-2">Loading events...</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- === SECTION 2: ANNOUNCEMENTS === -->
+      <div id="announcementsSection" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Left: Post Announcement Form -->
+        <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 lg:col-span-4 sticky top-6">
+          <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <span class="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg text-sm">📢</span> Broadcast Notice
+          </h2>
+          <form id="announcementForm" class="space-y-4 text-sm">
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">Notice Title</label>
+              <input type="text" id="annTitle" required placeholder="e.g., End of Semester Timetable" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition">
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">Category</label>
+              <select id="annCategory" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 bg-white transition">
+                <option value="General">General</option>
+                <option value="Academic">Academic</option>
+                <option value="Exam">Exam</option>
+                <option value="Urgent">Urgent</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">Content / Announcement</label>
+              <textarea id="annContent" rows="3" required placeholder="Detailed information for students..." class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"></textarea>
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">Author / Department</label>
+              <input type="text" id="annAuthor" required placeholder="e.g., Academic Registrar" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition">
+            </div>
+            <button type="submit" class="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-semibold hover:bg-indigo-700 transition active:scale-[0.99] shadow-sm">Post Announcement</button>
+          </form>
+        </section>
+
+        <!-- Right: Announcements Feed -->
+        <section class="lg:col-span-8 space-y-6">
+          <div class="flex justify-between items-center">
+            <h2 class="text-xl font-bold text-slate-900">Official Campus Bulletins</h2>
+            <button onclick="loadAnnouncements()" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition flex items-center gap-1">🔄 Refresh Bulletins</button>
+          </div>
+          <div id="announcementsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <p class="text-slate-500 italic md:col-span-2">Loading bulletins...</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- === SECTION 3: LOST & FOUND === -->
+      <div id="lostFoundSection" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Left: Report Item Form -->
+        <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 lg:col-span-4 sticky top-6">
+          <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <span class="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg text-sm">🔍</span> Report Item
+          </h2>
+          <form id="lostItemForm" class="space-y-4 text-sm">
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">Item Name</label>
+              <input type="text" id="itemName" placeholder="e.g., Lenovo Laptop, Student ID" required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition">
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">Status</label>
+              <select id="itemStatus" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 bg-white transition">
+                <option value="Lost">Lost (Looking for it)</option>
+                <option value="Found">Found (Safe with me)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">Description</label>
+              <textarea id="itemDesc" rows="2" placeholder="Color, distinguishing features, brand..." required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"></textarea>
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">Location Lost / Found</label>
+              <input type="text" id="itemLocation" placeholder="e.g., University Library 2nd Floor" required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition">
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">Contact Info (Phone / WhatsApp)</label>
+              <input type="text" id="itemContact" placeholder="e.g., +256700000000" required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition">
+            </div>
+            <button type="submit" class="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-semibold hover:bg-indigo-700 transition active:scale-[0.99] shadow-sm">Submit Item Report</button>
+          </form>
+        </section>
+
+        <!-- Right: Lost & Found Items Feed -->
+        <section class="lg:col-span-8 space-y-6">
+          <div class="flex justify-between items-center">
+            <h2 class="text-xl font-bold text-slate-900">Campus Lost & Found Registry</h2>
+            <button onclick="loadLostItems()" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition flex items-center gap-1">🔄 Refresh Registry</button>
+          </div>
+          <div id="lostItemsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <p class="text-slate-500 italic md:col-span-2">Loading items...</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- === SECTION 4: STUDY GROUPS === -->
+      <div id="studyGroupsSection" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Left: Create Group Form -->
+        <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 lg:col-span-4 sticky top-6">
+          <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <span class="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg text-sm">📚</span> Form Study Group
+          </h2>
+          <form id="studyGroupForm" class="space-y-4 text-sm">
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">Course Code & Name</label>
+              <input type="text" id="groupCourse" placeholder="e.g., BSCT 1234" required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition">
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">Study Objective / Topic</label>
+              <input type="text" id="groupTopic" placeholder="e.g., MongoDB Schema & Indexing" required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition">
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">Meeting Venue / Room</label>
+              <input type="text" id="groupLocation" placeholder="e.g., CS Lab 2" required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition">
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">Schedule / Time</label>
+              <input type="text" id="groupTime" placeholder="e.g., Wednesdays at 4:00 PM" required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition">
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block font-medium text-slate-700 mb-1">Max Members</label>
+                <input type="number" id="groupMax" value="5" min="2" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition">
+              </div>
+              <div>
+                <label class="block font-medium text-slate-700 mb-1">Organizer</label>
+                <input type="text" id="groupOrganizer" placeholder="Your Name" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition">
+              </div>
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">Contact Info / WhatsApp Link</label>
+              <input type="text" id="groupContact" placeholder="e.g., +256... or chat group link" required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition">
+            </div>
+            <button type="submit" class="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-semibold hover:bg-indigo-700 transition active:scale-[0.99] shadow-sm">Create Group</button>
+          </form>
+        </section>
+
+        <!-- Right: Active Study Groups Feed -->
+        <section class="lg:col-span-8 space-y-6">
+          <div class="flex justify-between items-center">
+            <h2 class="text-xl font-bold text-slate-900">Active Campus Study Groups</h2>
+            <button onclick="loadStudyGroups()" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition flex items-center gap-1">🔄 Refresh Groups</button>
+          </div>
+          <div id="studyGroupsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <p class="text-slate-500 italic md:col-span-2">Loading study groups...</p>
+          </div>
+        </section>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 mt-16 py-6 text-center text-xs text-slate-500">
+    <p>Smart Campus & Student Activity Hub &bull; Bugema University Edition</p>
+  </footer>
+
+  <!-- JavaScript Frontend Logic -->
+  <script>
+    const API_EVENTS = 'http://localhost:5000/api/events';
+    const API_ANNOUNCEMENTS = 'http://localhost:5000/api/announcements';
+    const API_LOST = 'http://localhost:5000/api/lost-items';
+    const API_GROUPS = 'http://localhost:5000/api/study-groups';
+
+    const REG_PATTERN = /^\d{4}\/[A-Z]+\/[A-Z]+\/\d{4}$/i;
+
+    function switchTab(tab) {
+      const eventsSec = document.getElementById('eventsSection');
+      const annSec = document.getElementById('announcementsSection');
+      const lostSec = document.getElementById('lostFoundSection');
+      const groupsSec = document.getElementById('studyGroupsSection');
+
+      const btnEv = document.getElementById('btnEvents');
+      const btnAn = document.getElementById('btnAnnouncements');
+      const btnLf = document.getElementById('btnLostFound');
+      const btnSg = document.getElementById('btnStudyGroups');
+
+      eventsSec.classList.add('hidden');
+      annSec.classList.add('hidden');
+      lostSec.classList.add('hidden');
+      groupsSec.classList.add('hidden');
+
+      const inactiveStyle = "px-5 py-2.5 font-semibold text-sm rounded-lg shadow-sm transition-all duration-200 bg-white text-slate-600 border border-slate-200 hover:bg-slate-100";
+      const activeStyle = "px-5 py-2.5 font-semibold text-sm rounded-lg shadow-sm transition-all duration-200 bg-indigo-600 text-white";
+
+      btnEv.className = inactiveStyle;
+      btnAn.className = inactiveStyle;
+      btnLf.className = inactiveStyle;
+      btnSg.className = inactiveStyle;
+
+      if (tab === 'events') {
+        eventsSec.classList.remove('hidden');
+        btnEv.className = activeStyle;
+        loadEvents();
+      } else if (tab === 'announcements') {
+        annSec.classList.remove('hidden');
+        btnAn.className = activeStyle;
+        loadAnnouncements();
+      } else if (tab === 'lostFound') {
+        lostSec.classList.remove('hidden');
+        btnLf.className = activeStyle;
+        loadLostItems();
+      } else if (tab === 'studyGroups') {
+        groupsSec.classList.remove('hidden');
+        btnSg.className = activeStyle;
+        loadStudyGroups();
+      }
+    }
+
+    // --- EVENTS LOGIC ---
+    async function loadEvents() {
+      try {
+        const res = await fetch(API_EVENTS);
+        const events = await res.json();
+        const container = document.getElementById('eventsContainer');
+
+        if (!events || events.length === 0) {
+          container.innerHTML = `<p class="text-slate-500 bg-white p-8 rounded-2xl border border-slate-200 text-center md:col-span-2 shadow-sm">No campus events posted yet. Use the form to publish one!</p>`;
+          return;
+        }
+
+        container.innerHTML = events.map(event => `
+          <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 hover:border-slate-300 transition flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex justify-between items-start">
+                <span class="text-xs font-bold px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full border border-indigo-100">${event.category}</span>
+                <span class="text-xs font-medium text-slate-500 flex items-center gap-1">📍 ${event.location}</span>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 mt-2">${event.title}</h3>
+              <p class="text-slate-600 text-sm mt-1 leading-relaxed">${event.description}</p>
+            </div>
+            <div class="text-xs text-slate-500 border-t border-slate-100 pt-3 flex justify-between items-center">
+              <span>Organizer: <strong class="text-slate-700">${event.organizerName}</strong></span>
+              <span>Capacity: <strong class="text-indigo-600">${event.attendees ? event.attendees.length : 0} / ${event.capacity}</strong></span>
+            </div>
+            <div class="flex justify-end space-x-2 pt-2 border-t border-slate-100">
+              <button onclick="registerEvent('${event._id}')" class="px-3 py-1.5 bg-emerald-600 text-white text-xs rounded-lg font-semibold hover:bg-emerald-700 transition shadow-sm">Register</button>
+              <button onclick="withdrawEvent('${event._id}')" class="px-3.5 py-1.5 bg-amber-500 text-white text-xs rounded-lg font-semibold hover:bg-amber-600 transition shadow-sm">Withdraw</button>
+              <button onclick="deleteEvent('${event._id}')" class="px-3.5 py-1.5 bg-rose-600 text-white text-xs rounded-lg font-semibold hover:bg-rose-700 transition shadow-sm">Delete</button>
+            </div>
+          </div>
+        `).join('');
+      } catch (err) { console.error(err); }
+    }
+
+    document.getElementById('eventForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const newEvent = {
+        title: document.getElementById('title').value,
+        description: document.getElementById('description').value,
+        category: document.getElementById('category').value,
+        capacity: Number(document.getElementById('capacity').value),
+        location: document.getElementById('location').value,
+        eventDate: document.getElementById('eventDate').value,
+        organizerName: document.getElementById('organizerName').value
+      };
+      const res = await fetch(API_EVENTS, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newEvent)
+      });
+      if (res.ok) { document.getElementById('eventForm').reset(); loadEvents(); }
+    });
+
+    async function registerEvent(id) {
+      const studentName = prompt('Enter your full name:');
+      if (!studentName) return;
+
+      const studentEmail = prompt('Enter your student email:');
+      if (!studentEmail) return;
+
+      const regNumber = prompt('Enter your Reg Number (Format: 2024/BSE/BU/0004):');
+      if (!regNumber) return;
+
+      if (!REG_PATTERN.test(regNumber)) {
+        alert('Invalid Registration Number format! Must match: 2024/BSE/BU/0004');
+        return;
+      }
+
+      const res = await fetch(`${API_EVENTS}/${id}/attendees`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ studentName, studentEmail, regNumber })
+      });
+      const data = await res.json();
+      alert(data.message);
+      loadEvents();
+    }
+
+    async function withdrawEvent(id) {
+      const regNumber = prompt('Enter your Reg Number (e.g., 2024/BSE/BU/0004) to withdraw:');
+      if (!regNumber) return;
+
+      if (!REG_PATTERN.test(regNumber)) {
+        alert('Invalid format! Registration numbers look like: 2024/BSE/BU/0004');
+        return;
+      }
+
+      const res = await fetch(`${API_EVENTS}/${id}/attendees`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ regNumber })
+      });
+      const data = await res.json();
+      alert(data.message);
+      loadEvents();
+    }
+
+    async function deleteEvent(id) {
+      if (!confirm('Delete this event listing?')) return;
+      const res = await fetch(`${API_EVENTS}/${id}`, { method: 'DELETE' });
+      if (res.ok) loadEvents();
+    }
+
+    // --- ANNOUNCEMENTS LOGIC ---
+    async function loadAnnouncements() {
+      try {
+        const res = await fetch(API_ANNOUNCEMENTS);
+        const announcements = await res.json();
+        const container = document.getElementById('announcementsContainer');
+
+        if (!announcements || announcements.length === 0) {
+          container.innerHTML = `<p class="text-slate-500 bg-white p-8 rounded-2xl border border-slate-200 text-center md:col-span-2 shadow-sm">No official bulletins posted yet.</p>`;
+          return;
+        }
+
+        container.innerHTML = announcements.map(ann => `
+          <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 hover:border-slate-300 transition space-y-3 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start">
+                <span class="text-xs font-bold px-3 py-1 bg-amber-50 text-amber-700 rounded-full border border-amber-100">${ann.category}</span>
+                <span class="text-xs font-medium text-slate-400">${new Date(ann.datePosted).toLocaleDateString()}</span>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 mt-2">${ann.title}</h3>
+              <p class="text-slate-600 text-sm leading-relaxed mt-1">${ann.content}</p>
+            </div>
+            <div class="text-xs text-slate-500 border-t border-slate-100 pt-3 flex justify-between items-center">
+              <span>Posted by: <strong class="text-slate-700">${ann.author}</strong></span>
+              <button onclick="deleteAnnouncement('${ann._id}')" class="text-rose-600 font-semibold hover:underline">Delete Notice</button>
+            </div>
+          </div>
+        `).join('');
+      } catch (err) { console.error(err); }
+    }
+
+    document.getElementById('announcementForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const newAnn = {
+        title: document.getElementById('annTitle').value,
+        category: document.getElementById('annCategory').value,
+        content: document.getElementById('annContent').value,
+        author: document.getElementById('annAuthor').value
+      };
+      const res = await fetch(API_ANNOUNCEMENTS, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newAnn)
+      });
+      if (res.ok) { document.getElementById('announcementForm').reset(); loadAnnouncements(); }
+    });
+
+    async function deleteAnnouncement(id) {
+      if (!confirm('Delete this bulletin entry?')) return;
+      const res = await fetch(`${API_ANNOUNCEMENTS}/${id}`, { method: 'DELETE' });
+      if (res.ok) loadAnnouncements();
+    }
+
+    // --- LOST & FOUND LOGIC ---
+    async function loadLostItems() {
+      try {
+        const res = await fetch(API_LOST);
+        const items = await res.json();
+        const container = document.getElementById('lostItemsContainer');
+
+        if (!items || items.length === 0) {
+          container.innerHTML = `<p class="text-slate-500 bg-white p-8 rounded-2xl border border-slate-200 text-center md:col-span-2 shadow-sm">No lost or found items reported currently.</p>`;
+          return;
+        }
+
+        container.innerHTML = items.map(item => {
+          const isLost = item.status === 'Lost';
+          const badgeStyle = isLost ? 'bg-rose-50 text-rose-700 border-rose-100' : 'bg-emerald-50 text-emerald-700 border-emerald-100';
+          return `
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 hover:border-slate-300 transition space-y-3 flex flex-col justify-between">
+              <div>
+                <div class="flex justify-between items-start">
+                  <span class="text-xs font-bold px-3 py-1 rounded-full border ${badgeStyle}">${item.status.toUpperCase()}</span>
+                  <span class="text-xs font-medium text-slate-500">📍 ${item.location}</span>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 mt-2">${item.itemName}</h3>
+                <p class="text-slate-600 text-sm leading-relaxed mt-1">${item.description}</p>
+              </div>
+              <div class="text-xs text-slate-500 border-t border-slate-100 pt-3 flex justify-between items-center">
+                <span>Contact: <strong class="text-slate-700">${item.contactInfo}</strong></span>
+                <button onclick="deleteLostItem('${item._id}')" class="text-slate-400 font-medium hover:text-rose-600 transition">Mark Resolved</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (err) { console.error(err); }
+    }
+
+    document.getElementById('lostItemForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const newItem = {
+        itemName: document.getElementById('itemName').value,
+        status: document.getElementById('itemStatus').value,
+        description: document.getElementById('itemDesc').value,
+        location: document.getElementById('itemLocation').value,
+        contactInfo: document.getElementById('itemContact').value
+      };
+      const res = await fetch(API_LOST, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newItem)
+      });
+      if (res.ok) { document.getElementById('lostItemForm').reset(); loadLostItems(); }
+    });
+
+    async function deleteLostItem(id) {
+      if (!confirm('Mark item as resolved and delete entry?')) return;
+      const res = await fetch(`${API_LOST}/${id}`, { method: 'DELETE' });
+      if (res.ok) loadLostItems();
+    }
+
+    // --- STUDY GROUPS LOGIC ---
+    async function loadStudyGroups() {
+      try {
+        const res = await fetch(API_GROUPS);
+        const groups = await res.json();
+        const container = document.getElementById('studyGroupsContainer');
+
+        if (!groups || groups.length === 0) {
+          container.innerHTML = `<p class="text-slate-500 bg-white p-8 rounded-2xl border border-slate-200 text-center md:col-span-2 shadow-sm">No active study groups found.</p>`;
+          return;
+        }
+
+        container.innerHTML = groups.map(group => `
+          <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 hover:border-slate-300 transition space-y-3 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start">
+                <span class="text-xs font-bold px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full border border-indigo-100">${group.courseName}</span>
+                <span class="text-xs font-medium text-slate-500">📍 ${group.meetingLocation}</span>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 mt-2">${group.topic}</h3>
+              <p class="text-slate-600 text-sm mt-1">📅 <strong>Schedule:</strong> ${group.meetingTime}</p>
+            </div>
+            <div class="text-xs text-slate-500 border-t border-slate-100 pt-3 flex justify-between items-center">
+              <span>Organizer: <strong class="text-slate-700">${group.organizer}</strong> (${group.contactInfo})</span>
+              <div class="flex space-x-2">
+                <button onclick="leaveStudyGroup('${group._id}')" class="px-2.5 py-1 bg-amber-500 text-white rounded-md font-semibold hover:bg-amber-600 transition shadow-sm">Leave Group</button>
+                <button onclick="deleteStudyGroup('${group._id}')" class="text-rose-600 font-semibold hover:underline">Close Group</button>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      } catch (err) { console.error(err); }
+    }
+
+    document.getElementById('studyGroupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const newGroup = {
+        courseName: document.getElementById('groupCourse').value,
+        topic: document.getElementById('groupTopic').value,
+        meetingLocation: document.getElementById('groupLocation').value,
+        meetingTime: document.getElementById('groupTime').value,
+        maxMembers: Number(document.getElementById('groupMax').value),
+        organizer: document.getElementById('groupOrganizer').value,
+        contactInfo: document.getElementById('groupContact').value
+      };
+      const res = await fetch(API_GROUPS, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newGroup)
+      });
+      if (res.ok) { document.getElementById('studyGroupForm').reset(); loadStudyGroups(); }
+    });
+
+    async function leaveStudyGroup(id) {
+      const regNumber = prompt('Enter your Reg Number (e.g., 2024/BSE/BU/0004) to leave group:');
+      if (!regNumber) return;
+
+      if (!REG_PATTERN.test(regNumber)) {
+        alert('Invalid format! Registration numbers look like: 2024/BSE/BU/0004');
+        return;
+      }
+
+      const res = await fetch(`${API_GROUPS}/${id}/leave`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ regNumber })
+      });
+      const data = await res.json();
+      alert(data.message);
+      loadStudyGroups();
+    }
+
+    async function deleteStudyGroup(id) {
+      if (!confirm('Close and remove this study group?')) return;
+      const res = await fetch(`${API_GROUPS}/${id}`, { method: 'DELETE' });
+      if (res.ok) loadStudyGroups();
+    }
+
+    loadEvents();
+  </script>
+</body>
+</html>
